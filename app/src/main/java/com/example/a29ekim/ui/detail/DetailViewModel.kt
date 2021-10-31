@@ -1,4 +1,6 @@
 package com.example.a29ekim.ui.detail
 
-class DetailViewModel {
+import androidx.lifecycle.ViewModel
+
+class DetailViewModel : ViewModel() {
 }

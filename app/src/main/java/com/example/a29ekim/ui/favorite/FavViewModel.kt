@@ -1,4 +1,6 @@
 package com.example.a29ekim.ui.favorite
 
-class FavViewModel {
+import androidx.lifecycle.ViewModel
+
+class FavViewModel : ViewModel() {
 }

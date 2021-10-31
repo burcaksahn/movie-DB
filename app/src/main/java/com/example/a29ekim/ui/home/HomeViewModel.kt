@@ -1,4 +1,6 @@
 package com.example.a29ekim.ui.home
 
-class HomeViewModel {
+import androidx.lifecycle.ViewModel
+
+class HomeViewModel: ViewModel() {
 }
