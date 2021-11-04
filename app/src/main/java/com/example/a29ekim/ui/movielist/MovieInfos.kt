@@ -12,7 +12,7 @@ class MovieInfos{
 
     @SerializedName("results")
     @Expose
-    var results: List<Result>? = null
+    var results: List<ResultInfo>? = null
 
     @SerializedName("total_pages")
     @Expose

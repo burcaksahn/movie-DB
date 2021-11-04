@@ -7,38 +7,59 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a29ekim.R
+import com.example.a29ekim.databinding.FragmentMovieListBinding
+import com.example.a29ekim.utils.ListClickListener
 import com.example.a29ekim.utils.GetService
+import com.example.a29ekim.utils.RecyclerAdapter
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieListFragment : Fragment() {
+class MovieListFragment : Fragment(), ListClickListener {
 
-
+    private lateinit var binding: FragmentMovieListBinding
+    private lateinit var adapterMovie: RecyclerAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding= FragmentMovieListBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+        return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initialRecyclerView()
+        getData()
         super.onViewCreated(view, savedInstanceState)
+
+    }
+    private fun initialRecyclerView(){
+        adapterMovie= RecyclerAdapter(this)
+        binding.rvmovie.apply {
+            layoutManager=LinearLayoutManager(context)
+            adapter=adapterMovie
+        }
     }
     private lateinit var api:GetService
     private fun getData(){
         api=GetService.getInstance()
-        var list:List<Result?>?=null
+        var list:List<ResultInfo?>?=null
         val call: Call<MovieInfos> = api.getAllMovieList("22574df9e1fe27a06f9bce371fb6aa2a", 1)
         call.enqueue(object :Callback<MovieInfos>{
             override fun onResponse(call: Call<MovieInfos>, response: Response<MovieInfos>) {
                 Log.d("TAG", "onResponse: "+response.body()?.results?.get(0)?.title)
+                adapterMovie.submitList(response.body()?.results)
             }
 
             override fun onFailure(call: Call<MovieInfos>, t: Throwable) {
             }
         })
+    }
+
+    override fun isClicked(id: String) {
+
     }
 }
