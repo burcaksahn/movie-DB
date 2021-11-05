@@ -56,7 +56,7 @@ class ResultInfo {
 
     @SerializedName("vote_average")
     @Expose
-    var voteAverage: Int? = null
+    var voteAverage: Float? = null
 
     @SerializedName("vote_count")
     @Expose

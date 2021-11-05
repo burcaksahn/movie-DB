@@ -4,4 +4,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movielistfragmentname">Movie List</string>
     <string name="favoritelistfragmentname">Favorite List</string>
+    <string name="detailMovieId">Id</string>
+    <string name="detailMovieName">Name</string>
+    <string name="detailMovieReleaseDate">Release Date</string>
+    <string name="detailMovieOverview">Overview</string>
+    <string name="detailMovieVote">Vote</string>
+    <string name="detailMovieVoteAverage">Vote Average</string>
+    <string name="detailMovieStatus">Status</string>
+
 </resources>

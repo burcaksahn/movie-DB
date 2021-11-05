@@ -50,12 +50,14 @@ class MovieListFragment : Fragment(), ListClickListener {
         val call: Call<MovieInfos> = api.getAllMovieList("22574df9e1fe27a06f9bce371fb6aa2a", 1)
         call.enqueue(object :Callback<MovieInfos>{
             override fun onResponse(call: Call<MovieInfos>, response: Response<MovieInfos>) {
-                Log.d("TAG", "onResponse: "+response.body()?.results?.get(0)?.title)
+               
                 adapterMovie.submitList(response.body()?.results)
             }
 
             override fun onFailure(call: Call<MovieInfos>, t: Throwable) {
+                Log.d("TAG", "onFailure:"+ t.toString())
             }
+
         })
     }
 
