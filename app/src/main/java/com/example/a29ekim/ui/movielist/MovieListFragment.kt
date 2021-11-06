@@ -1,15 +1,18 @@
 package com.example.a29ekim.ui.movielist
 
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import retrofit2.Call
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a29ekim.R
 import com.example.a29ekim.databinding.FragmentMovieListBinding
+import com.example.a29ekim.ui.home.HomeFragmentDirections
 import com.example.a29ekim.utils.ListClickListener
 import com.example.a29ekim.utils.GetService
 import com.example.a29ekim.utils.RecyclerAdapter
@@ -50,7 +53,7 @@ class MovieListFragment : Fragment(), ListClickListener {
         val call: Call<MovieInfos> = api.getAllMovieList("22574df9e1fe27a06f9bce371fb6aa2a", 1)
         call.enqueue(object :Callback<MovieInfos>{
             override fun onResponse(call: Call<MovieInfos>, response: Response<MovieInfos>) {
-               
+
                 adapterMovie.submitList(response.body()?.results)
             }
 
@@ -62,6 +65,7 @@ class MovieListFragment : Fragment(), ListClickListener {
     }
 
     override fun isClicked(id: String) {
-
+        val action=HomeFragmentDirections.actionHomeFragmentToDetailFragment(id.toInt())
+        Navigation.findNavController(binding.root).navigate(action)
     }
 }

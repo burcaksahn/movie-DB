@@ -30,6 +30,13 @@ class RecyclerAdapter(val listener:ListClickListener) : ListAdapter<ResultInfo, 
     inner class UserHolder(iv: View) : RecyclerView.ViewHolder(iv) {
         val movieName: TextView = itemView.findViewById(R.id.movieName)
         val movieImage: ImageView = itemView.findViewById(R.id.moviePhoto)
+        init {
+            movieName.setOnClickListener{
+                if(adapterPosition!=RecyclerView.NO_POSITION){
+                    listener.isClicked(getItem(adapterPosition).id.toString())
+                }
+            }
+        }
     }
 
 }
