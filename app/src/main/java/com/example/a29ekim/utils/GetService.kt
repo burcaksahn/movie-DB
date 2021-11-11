@@ -11,9 +11,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GetService {
-    @GET("/3/movie/popular")
-    fun getAllMovieList(@Query("api_key")key:String,@Query("page")page:Int):Call<MovieInfos>
-    @GET("movie/{id}?api_key=22574df9e1fe27a06f9bce371fb6aa2a&language=en-US")
+    @GET("/3/movie/popular?api_key=22574df9e1fe27a06f9bce371fb6aa2a")
+    fun getAllMovieList(@Query("page")page:Int):Call<MovieInfos>
+    @GET("/3/movie/{id}?api_key=22574df9e1fe27a06f9bce371fb6aa2a&language=en-US")
     fun getSelectedMovie(@Path("id") id: Int): Call<Example>
   //  https://api.themoviedb.org/3/movie/popular?api_key=22574df9e1fe27a06f9bce371fb6aa2a&language=en-US&page=1
     companion object{
