@@ -1,11 +1,12 @@
 package com.example.a29ekim.ui.favorite.db
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.a29ekim.utils.subscribeOnBackground
 
 
-class FavRepository(val application:Application) {
+class FavRepository(application:Application) {
 
     private val database=FavDatabase.getInstance(application)
     private val favDao=database.favDao()
@@ -24,6 +25,7 @@ class FavRepository(val application:Application) {
     }
 
     fun getAllMovies() : LiveData<List<FavModel>>{
+        Log.d("TAG", "getAllMovies: ")
         return favDao.getAllMovies()
     }
 }

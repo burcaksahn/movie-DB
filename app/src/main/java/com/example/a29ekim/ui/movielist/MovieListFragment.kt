@@ -1,5 +1,6 @@
 package com.example.a29ekim.ui.movielist
 
+import android.app.Application
 import android.os.Bundle
 import android.text.Layout
 import android.util.Log
@@ -10,10 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a29ekim.R
 import com.example.a29ekim.databinding.FragmentMovieListBinding
+import com.example.a29ekim.ui.favorite.FavViewModel
+import com.example.a29ekim.ui.favorite.db.FavModel
 import com.example.a29ekim.ui.home.HomeFragmentDirections
 import com.example.a29ekim.utils.ListClickListener
 import com.example.a29ekim.utils.GetService
@@ -27,6 +31,7 @@ class MovieListFragment : Fragment(), ListClickListener {
     private lateinit var VM:MovieListViewModel
     private lateinit var binding: FragmentMovieListBinding
     private lateinit var adapterMovie: RecyclerAdapter
+    private lateinit var favVM:FavViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,9 +42,10 @@ class MovieListFragment : Fragment(), ListClickListener {
 
     }
     private fun initialVM() {
-        val factory = MovieListViewModelFactory()
-        VM = ViewModelProvider(this, factory)[MovieListViewModel::class.java]
-
+        val factory = MovieListViewModelFactory(Application())
+//        VM = ViewModelProvider(this, factory)[MovieListViewModel::class.java]
+        VM=ViewModelProviders.of(this)[MovieListViewModel::class.java]
+        favVM=ViewModelProviders.of(this)[FavViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,5 +66,10 @@ class MovieListFragment : Fragment(), ListClickListener {
     override fun isClicked(id: String) {
         val action=HomeFragmentDirections.actionHomeFragmentToDetailFragment(id.toInt())
         Navigation.findNavController(binding.root).navigate(action)
+    }
+
+    override fun isCheckFav(model: FavModel) {
+        favVM.insert(model)
+        Log.d("TAG", "isCheckFav: "+ model.name)
     }
 }
