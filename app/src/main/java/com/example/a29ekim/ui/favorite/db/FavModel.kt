@@ -6,4 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "fav_table")
 data class FavModel(
     @PrimaryKey
-    val name:String)
+    val name:String,
+    val movieNumber:Int,
+    val posterPath:String)

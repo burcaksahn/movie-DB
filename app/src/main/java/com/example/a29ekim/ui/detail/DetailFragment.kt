@@ -17,6 +17,7 @@ import com.example.a29ekim.ui.movielist.ResultInfo
 import com.example.a29ekim.utils.DetailViewModelFactory
 import com.example.a29ekim.utils.GetService
 import com.example.a29ekim.utils.MovieListViewModelFactory
+import com.example.a29ekim.utils.updateWithUrl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,7 +60,7 @@ class DetailFragment : Fragment() {
                 binding.voteaverage.setText(it.getVoteAverage().toString())
                 binding.vote.setText(it.getVoteCount().toString())
                 binding.overview.setText(it.getOverview().toString())
-
+                binding.imageView2.updateWithUrl("https://image.tmdb.org/t/p/w500/"+it.getPosterPath(),binding.imageView2)
 
             })
          Log.d("TAG", "getDetail: " + DetailFragmentArgs.fromBundle(bundle).movieId.toInt())

@@ -11,17 +11,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a29ekim.R
 import com.example.a29ekim.databinding.FragmentFavBinding
+import com.example.a29ekim.ui.favorite.db.FavModel
 import com.example.a29ekim.ui.movielist.MovieListViewModel
-import com.example.a29ekim.utils.FavViewModelFactory
-import com.example.a29ekim.utils.MovieListViewModelFactory
+import com.example.a29ekim.utils.*
 
 
-class FavFragment : Fragment() {
+class FavFragment : Fragment(), ListClickListener {
 
     private lateinit var VM:FavViewModel
     private lateinit var binding:FragmentFavBinding
+    private lateinit var adapterFav:FavAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +38,17 @@ class FavFragment : Fragment() {
         VM=ViewModelProviders.of(this)[FavViewModel::class.java]
 
     }
+    private fun initialRecyclerView(){
+        adapterFav= FavAdapter(this)
+        binding.rvfav.apply {
+            layoutManager= LinearLayoutManager(context)
+            adapter=adapterFav
+        }
+        VM.getAllMovies().observe(viewLifecycleOwner, Observer {
+            adapterFav.submitList(it)
+        })
+    }
+
     private fun getData(){
         VM.getAllMovies().observe(viewLifecycleOwner, Observer {
             Log.d("TAG", "getData: "+it.size)
@@ -48,8 +61,17 @@ class FavFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initialVM()
+        initialRecyclerView()
         getData()
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun isClicked(id: String) {
+
+    }
+
+    override fun isCheckFav(model: FavModel) {
+
     }
 
 }

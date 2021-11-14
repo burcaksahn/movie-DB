@@ -43,7 +43,8 @@ class RecyclerAdapter(val listener:ListClickListener) : ListAdapter<ResultInfo, 
             }
             movieIsFav.setOnClickListener{
                 if(adapterPosition!=RecyclerView.NO_POSITION){
-                    listener.isCheckFav(FavModel(getItem(adapterPosition).title.toString()))
+                    listener.isCheckFav(FavModel(getItem(adapterPosition).title.toString(),getItem(adapterPosition).id!!.toInt(),
+                    getItem(adapterPosition).posterPath.toString()))
                 }
 
             }
